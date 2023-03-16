@@ -160,11 +160,14 @@ _.indexOf = function (array, value) {
 *   _.contains([1,"two", 3.14], "two") -> true
 */
 _.contains = function (array, value) {
-    var bool = false;
+    var bool;
     for (let i = 0; i < array.length; i++) {
-        bool = array[i] === value ? true : bool;
+        bool = array[i] === value ? true : false;
+        if (bool === true) {
+            return true
+        }
     }
-    return bool
+    return false
 }
 
 /** _.each
@@ -528,7 +531,7 @@ _.reduce = function(array, func, seed) {
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
-_.extend = function () {
+/_.extend = function() {
     for (var i = 1; i < arguments.length; i++) {
         for (let key in arguments[i]) {
             arguments[0][key] = arguments[i][key];

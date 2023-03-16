@@ -34,3 +34,11 @@ module.exports.each = each;
 function identity = (value) {
     return value;
 }
+
+
+/**
+ * thte function iterates through the array and
+ * calls the callback function for each element. It 
+ * accumulates a return value 
+ * based on the previous result.
+ * 
