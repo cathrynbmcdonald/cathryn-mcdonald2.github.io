@@ -44,7 +44,7 @@ function drawChessboard(size) {
     }
     board += "\n";
   }
-return board;
+console.log(board);
 }
 
 

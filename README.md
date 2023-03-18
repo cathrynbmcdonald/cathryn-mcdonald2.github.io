@@ -11,7 +11,7 @@
 9) Select bootcamp session
 10) Select project to install
 
-# cathryn-mcdonald-github.io
+# cathryn-mcdonald2.github.io
 
 hello
 ## How to Test Projects
