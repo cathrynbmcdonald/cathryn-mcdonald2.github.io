@@ -31,12 +31,12 @@ var age;
  */
 
 // 1 // Declaration and assignment
-var age: // variable age declared
+var age; // variable age declared
 age = 35; // variable 'assigned' value of 35
 
 // 2 // var, let, const
-var age = 65; // 
-let age = 18; //
-const age = 33; //
+var number = 10; // 
+let count = 2; //
+const length = 33; //
 
 // 3 // Hoisting

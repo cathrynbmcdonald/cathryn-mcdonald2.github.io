@@ -3,7 +3,7 @@
 // /////////////////////////////////////////////////////////////////////////////
 
 function flatten(arrays) {
-  return arrays.reduce((flat, current) => flat.concat(current), []);
+  return arrays.reduce(function(flat, current) {return flat.concat(current)}, []);
 }
 
 // /////////////////////////////////////////////////////////////////////////////
@@ -20,17 +20,39 @@ function loop(start, test, update, body) {
 // every ///////////////////////////////////////////////////////////////////////
 // /////////////////////////////////////////////////////////////////////////////
 
-function every() {
-
+function every(array, func) {
+  for (let key of array) {
+    if (!func(key)) return false;
+  }
+  return true;
 }
 
 // /////////////////////////////////////////////////////////////////////////////
 // dominantDirection ///////////////////////////////////////////////////////////
 // /////////////////////////////////////////////////////////////////////////////
 
-function dominantDirection() {
-
+function dominantDirection(text) {
+  let scripts = countBy(text, function (char) {
+    let script = characterScript(char.codePointAt(0));
+    if (script) {
+      return script.direction;
+    } else {
+      return "none";
+    }
+  }).filter(function({ name }) { return name != "none"});
+  if (scripts.length === 0) {
+    return 'no dominant direction found';
+  } else if (scripts.length === 1) {
+    return scripts[0].name;
+  } else {
+    if (scripts.reduce(function (acc, cur) { return acc.count === cur.count })) {
+      return 'no dominant direction found';
+    } else {
+      return scripts.reduce(function (acc, cur) { if (acc.count >= cur.count) { return acc.name } else { return cur.name } });
+    }
+  }
 }
+
 
 // /////////////////////////////////////////////////////////////////////////////
 //  //////////////////////////////////////////////////////

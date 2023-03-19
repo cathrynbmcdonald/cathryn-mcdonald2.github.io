@@ -16,7 +16,7 @@ var _ = require('underbar');
  *
  * 4. To test your work, run the following command in your terminal:
  *
- *    npm start --prefix ./cathryn-mcdonald2.github.io/projects/let-s-get-functional   here!!
+ *    npm start --prefix ./cathryn-mcdonald2.github.io/projects/let-s-get-functional 
  *
  *    IMPORTANT: Make sure you replace <YOUR_GITHUB_FOLDER with your actual github folder name that is in your workspace.
  */
@@ -38,52 +38,44 @@ var femaleCount = function (array) {
         if (current.gender === 'female') {
             accumulator++;
         }
-
         return accumulator;
     }, 0) // number of female customers
     return females;
 };
 
 var oldestCustomer = function (array) {
-    let oldestAgeArray = _.pluck(array, 'age');
-    let oldestAge = Math.max(...oldestAgeArray)
-    let oldestName = _.reduce(array, function (accumulator, current) {
-        if (current.age === oldestAge) {
-            accumulator += current.name;
+    let outputObject = _.reduce(array, function (accumulator, current) {
+        if (accumulator.age > current.age) {
+            return accumulator
+        } else {
+            return current
         }
-        return accumulator;
-    }, '')
-    return oldestName;
+    })
+    return outputObject.name
 };
 
 var youngestCustomer = function (array) {
-    let youngestAgeArray = _.pluck(array, 'age');
-    let youngestAge = Math.min(...youngestAgeArray)
-    let youngestName = _.reduce(array, function (accumulator, current) {
-        if (current.age === youngestAge) {
-            accumulator += current.name;
+    let outputObject = _.reduce(array, function (accumulator, current) {
+        if (accumulator.age < current.age) {
+            return accumulator
+        } else {
+            return current
         }
-        return accumulator;
-    }, '')
-    return youngestName;
+    })
+    return outputObject.name
 };
 
 var averageBalance = function (array) {
-    let balanceArray = _.pluck(array, 'balance');
-    let adjustedBalanceArray = _.map(balanceArray, function (balance) {
-        var adjustedBalanceString = '';
-        for (let i = 0; i < balance.length; i++) {
-            if (balance[i] !== '$' && balance[i] !== ',') {
-                adjustedBalanceString += balance[i];
+    var outputTotal = _.reduce(array, function (accumulator, current) {
+        var adjustedCurrentBalance = '';
+        for (let i = 0; i < current.balance.length; i++) {
+            if (current.balance[i] !== '$' && current.balance[i] !== ',') {
+                adjustedCurrentBalance += current.balance[i];
             }
         }
-        return Number(adjustedBalanceString);
-    })
-    let totalBalance = _.reduce(adjustedBalanceArray, function (accumulator, current) {
-        accumulator += current;
-        return accumulator;
-    })
-    return totalBalance / adjustedBalanceArray.length;
+        return accumulator += Number(adjustedCurrentBalance)
+    }, 0)
+    return outputTotal / array.length
 };
 
 var firstLetterCount = function (array, letter) {
@@ -97,92 +89,66 @@ var firstLetterCount = function (array, letter) {
 };
 
 var friendFirstLetterCount = function (array, customer, letter) {
-    var matchingCustomerArray = _.filter(array, function (customerObject, index, array) {
-        if (customerObject.name === customer) {
-            return customerObject;
+    var number = _.reduce(array, function (accumulator, current) {
+        if (current.name === customer) {
+            accumulator += firstLetterCount(current.friends, letter)
         }
-    })
-    return firstLetterCount(matchingCustomerArray[0].friends, letter);
+        return accumulator
+    }, 0)
+    return number
 };
 
 var friendsCount = function (array, name) {
-    var friendsArray = _.filter(array, function (customerObject, index, array) {
-        if (_.contains(_.pluck(customerObject.friends, 'name'), name)) {
-            return true;
+    var outputArray = _.reduce(array, function (accumulator, current) {
+        if (_.contains(_.pluck(current.friends, 'name'), name)) {
+            accumulator.push(current.name)
         }
-    })
-    return _.pluck(friendsArray, 'name')
-}
-
-var topThreeTags = function (array) {
-    var combinedTagArray = [];
-    var outputArray = [];
-    var nestedTagArray = [];
-    for (let i = 0; i < array.length; i++) {
-        nestedTagArray = _.map(array, function (current) {
-            return current.tags
-        })
-    }
-    for (let i = 0; i < nestedTagArray.length; i++) {
-        for (let j = 0; j < nestedTagArray[i].length; j++) {
-            combinedTagArray.push(nestedTagArray[i][j]);
-        }
-    };
-
-    var uniqueTagArray = _.unique(combinedTagArray);
-    var occurenceTagArray = _.map(uniqueTagArray, function (uTag) {
-        return _.filter(combinedTagArray, function (tag) {
-            return (tag === uTag)
-        }).length
-    });
-
-    var uniqueObject = {};
-    for (let i = 0; i < uniqueTagArray.length; i++) {
-        uniqueObject[uniqueTagArray[i]] = occurenceTagArray[i];
-    }
-    console.log(uniqueObject)
-
-    var sortedArray = occurenceTagArray.sort(); 
-    for (let key in uniqueObject) {
-        if (uniqueObject[key] === sortedArray[sortedArray.length - 1]) {
-            outputArray.push(key);
-            console.log(outputArray)
-        } else if (uniqueObject[key] === sortedArray[sortedArray.length - 2]) {
-            outputArray.push(key);
-            console.log(outputArray)
-        } else if (uniqueObject[key] === sortedArray[sortedArray.length - 3]) {
-            outputArray(key);
-            console.log(outputArray)
-        }
-    }
-    console.log(outputArray)
+        return accumulator
+    }, [])
     return outputArray;
 }
 
+var topThreeTags = function (array) {
+    var uniqueTagsObject = _.reduce(array, function (accumulator, current) {
+        for (let i = 0; i < current.tags.length; i++) {
+            if (!accumulator[current.tags[i]]) {
+                accumulator[current.tags[i]] = 1;
+            } else {
+                accumulator[current.tags[i]]++
+            }
+        }
+        return accumulator;
+    }, {});
+    var sortedArray = Object.values(uniqueTagsObject).sort()
+    var reverseSortedArray = sortedArray.reverse();
+    var topIndex = _.reduce(Object.values(uniqueTagsObject), function (accumulator, current, index) {
+        if (current === reverseSortedArray[0] && accumulator[0] === undefined) {
+            accumulator[0] = index;
+        } else if (current === reverseSortedArray[1] && accumulator[1] === undefined) {
+            accumulator[1] = index;
+        } else if (current === reverseSortedArray[2] && accumulator[2] === undefined) {
+            accumulator[2] = index;
+        }
+        return accumulator;
+    }, [])
+
+    var topTagArray = [];
+    topTagArray[0] = Object.keys(uniqueTagsObject)[topIndex[0]]
+    topTagArray[1] = Object.keys(uniqueTagsObject)[topIndex[1]]
+    topTagArray[2] = Object.keys(uniqueTagsObject)[topIndex[2]]
+    return topTagArray;
+}
+
 var genderCount = function (array) {
-    var outputObject = {};
-    var male = _.reduce(array, function (accumulator, current) {
-        if (current.gender === 'male') {
-            accumulator++
+    var outputObject = _.reduce(array, function (accumulator, current) {
+        if (!accumulator[current.gender]) {
+            accumulator[current.gender] = 1;
+        } else {
+            accumulator[current.gender]++
         }
         return accumulator
-    }, 0)
-    outputObject.male = male
-    var female = _.reduce(array, function (accumulator, current) {
-        if (current.gender === 'female') {
-            accumulator++
-        }
-        return accumulator
-    }, 0)
-    outputObject.female = female
-    var nonbinary = _.reduce(array, function (accumulator, current) {
-        if (current.gender === 'non-binary') {
-            accumulator++
-        }
-        return accumulator
-    }, 0)
-    outputObject['non-binary'] = nonbinary
-    return outputObject;
+    }, {})
+    return outputObject
 };
 
 //////////////////////////////////////////////////////////////////////

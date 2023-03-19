@@ -531,13 +531,13 @@ _.reduce = function(array, func, seed) {
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
-/_.extend = function() {
-    for (var i = 1; i < arguments.length; i++) {
-        for (let key in arguments[i]) {
-            arguments[0][key] = arguments[i][key];
+_.extend = function(obj1, ...args) {
+    for (var i = 0; i < args.length; i++) {
+        for (let key in args[i]) {
+            obj1[key] = args[i][key];
         }
     }
-    return arguments[0];
+    return obj1;
 }
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
