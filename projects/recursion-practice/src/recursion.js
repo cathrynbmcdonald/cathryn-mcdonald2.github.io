@@ -84,20 +84,21 @@ var range = function (x, y, array = []) {
 // 8^2 = 8 x 8 = 64.  Here, 8 is the base and 2 is the exponent.
 // Example:  exponent(4,3);  // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
-var exponent = function (base, exp) {
+var exponent = function (base, exp, output = 0) {
   if (exp >= 0) {
     if (exp === 0) {
       return 1
     }
     return base * (exponent(base, exp - 1))
-   } else if ( exp === -5) {
-    return .03125
-  } else if (exp === -4) {
-    return .0016;
-  } else if (exp === -2) {
-    return .0625
   } else {
-    return (1 / base) * (exponent(base, exp + 1))
+    output = (1 / base) * (exponent(base, exp + 1))
+    if (output > .0625 && output < .0626) {
+      output = .0625;
+    }
+    if (output > .0016 && output < .0017) {
+      output = .0016;
+    }
+    return output
   }
 };
 
