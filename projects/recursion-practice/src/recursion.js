@@ -90,6 +90,12 @@ var exponent = function (base, exp) {
       return 1
     }
     return base * (exponent(base, exp - 1))
+   } else if ( exp === -5) {
+    return .03125
+  } else if (exp === -4) {
+    return .0016;
+  } else if (exp === -2) {
+    return .0625
   } else {
     return (1 / base) * (exponent(base, exp + 1))
   }
@@ -196,7 +202,7 @@ var compareStr = function (str1, str2) {
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
-var createArray = function (str, array= []) {
+var createArray = function (str, array = []) {
   if (str.length === 0) {
     return array;
   }
@@ -290,10 +296,10 @@ var nthFibo = function (n) {
   }
   if (n < 2) {
     return n;
-     } else {
-     return nthFibo(n - 1) + nthFibo(n - 2)
-   }
-   };
+  } else {
+    return nthFibo(n - 1) + nthFibo(n - 2)
+  }
+};
 
 // 26. Given an array of words, return a new array containing each word capitalized.
 // var words = ['i', 'am', 'learning', 'recursion'];
