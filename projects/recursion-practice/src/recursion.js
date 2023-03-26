@@ -62,17 +62,15 @@ var range = function (x, y, array = []) {
     if (y - 1 === x) {
       return array;
     } else {
-      range(x, y - 1, array);
-      array.push(y - 1);
-      return array;
+      array.push(x + 1);
+      return range(x + 1, y, array);
     }
   } else if (x > y) {
-    if (y + 1 === x) {
+    if (x - 1 === y) {
       return array;
     } else {
-      range(x, y + 1, array);
-      array.push(y + 1);
-      return array;
+      array.push(x - 1);
+      return range(x - 1, y, array);
     }
   } else if (x === y) {
     return [];
@@ -207,19 +205,17 @@ var createArray = function (str, array = []) {
   if (str.length === 0) {
     return array;
   }
-  createArray(str.slice(1), array)
-  array.unshift(str[0])
-  return array
+  array.push(str[0])
+  return createArray(str.slice(1), array)
 };
 
 // 17. Reverse the order of an array
 var reverseArr = function (array, array2 = []) {
   if (array.length === 0) {
-    return array;
+    return array2;
   }
-  reverseArr(array.slice(1), array2)
-  array2.push(array[0])
-  return array2
+  array2.unshift(array[0])
+  return reverseArr(array.slice(1), array2)
 };
 
 // 18. Create a new array with a given value and length.
@@ -229,9 +225,8 @@ var buildList = function (value, length, array = []) {
   if (length === 0) {
     return array;
   }
-  var array = buildList(value, length - 1, array)
   array.push(value)
-  return array
+  return buildList(value, length - 1, array)
 };
 
 // 19. Count the occurence of a value inside a list.
@@ -254,9 +249,8 @@ var rMap = function (array, callback, array2 = []) {
   if (array.length === 0) {
     return array2;
   }
-  rMap(array.slice(1), callback, array2)
-  array2.unshift(callback(array[0]));
-  return array2
+  array2.push(callback(array[0]));
+  return rMap(array.slice(1), callback, array2)
 };
 
 // 21. Write a function that counts the number of times a key occurs in an object.
@@ -309,9 +303,8 @@ var capitalizeWords = function (input, array = []) {
   if (input.length === 0) {
     return array;
   }
-  capitalizeWords(input.slice(1), array);
-  array.unshift(input[0].toUpperCase())
-  return array
+  array.push(input[0].toUpperCase())
+  return capitalizeWords(input.slice(1), array);
 };
 
 // 27. Given an array of strings, capitalize the first letter of each index.
@@ -320,9 +313,8 @@ var capitalizeFirst = function (array, array2 = []) {
   if (array.length === 0) {
     return array2;
   }
-  capitalizeFirst(array.slice(1), array2)
-  array2.unshift(array[0][0].toUpperCase() + array[0].slice(1))
-  return array2;
+  array2.push(array[0][0].toUpperCase() + array[0].slice(1))
+  return capitalizeFirst(array.slice(1), array2);
 };
 
 // 28. Return the sum of all even numbers in an object containing nested objects.
@@ -348,13 +340,12 @@ var letterTally = function (str, obj = {}) {
   if (str.length === 0) {
     return obj;
   }
-  letterTally(str.slice(1), obj);
   if (obj.hasOwnProperty(str[0])) {
     obj[str[0]]++
   } else {
     obj[str[0]] = 1;
   }
-  return obj
+  return letterTally(str.slice(1), obj);
 };
 
 // 31. Eliminate consecutive duplicates in a list.  If the list contains repeated
@@ -366,11 +357,10 @@ var compress = function (list, array = []) {
   if (list.length === 0) {
     return array;
   }
-  var array = compress(list.slice(1), array)
-  if (list[0] !== array[0]) {
-    array.unshift(list[0])
+  if (list[0] !== array[array.length - 1] || array.length === 0) {
+    array.push(list[0])
   }
-  return array;
+  return compress(list.slice(1), array);
 };
 
 // 32. Augment every element in a list with a new value where each element is an array
@@ -386,11 +376,10 @@ var minimizeZeroes = function (array, array2 = []) {
   if (array.length === 0) {
     return array2;
   }
-  var array2 = minimizeZeroes(array.slice(1), array2)
-  if (!(array[0] === 0 && array[0] === array2[0])) {
-    array2.unshift(array[0])
+  if (!(array[0] === 0 && array2[array2.length - 1] === 0)) {
+    array2.push(array[0])
   }
-  return array2;
+  return minimizeZeroes(array.slice(1), array2);
 };
 
 // 34. Alternate the numbers in an array between positive and negative regardless of
@@ -401,14 +390,14 @@ var alternateSign = function (array, array2 = []) {
   if (array.length === 0) {
     return array2;
   }
-  var array2 = alternateSign(array.slice(1), array2)
-  if (array2.length % 2 === 1) {
-    array2.unshift(Math.abs(array[0]))
+  if (array2.length % 2 === 0) {
+    array2.push(Math.abs(array[0]))
   } else {
-    array2.unshift(-Math.abs(array[0]))
+    array2.push(-Math.abs(array[0]))
   }
-  return array2;
+  return alternateSign(array.slice(1), array2);
 };
+
 
 // 35. Given a string, return a string with digits converted to their word equivalent.
 // Assume all numbers are single digits (less than 10).
@@ -417,33 +406,30 @@ var numToText = function (str, str2 = '') {
   if (str.length === 0) {
     return str2;
   }
-  var str2 = numToText(str.slice(1), str2);
-  if (typeof Number(str[0]) !== 'number') {
-    str2 = str[0] + str2
-  } else if (str[0] === '0') {
-    str2 = 'zero' + str2;
+  if (str[0] === '0') {
+    str2 += 'zero';
   } else if (str[0] === '1') {
-    str2 = 'one' + str2;
+    str2 += 'one';
   } else if (str[0] === '2') {
-    str2 = 'two' + str2;
+    str2 += 'two';
   } else if (str[0] === '3') {
-    str2 = 'three' + str2;
+    str2 += 'three';
   } else if (str[0] === '4') {
-    str2 = 'four' + str2;
+    str2 += 'four';
   } else if (str[0] === '5') {
-    str2 = 'five' + str2;
+    str2 += 'five';
   } else if (str[0] === '6') {
-    str2 = 'six' + str2;
+    str2 += 'six';
   } else if (str[0] === '7') {
-    str2 = 'seven' + str2;
+    str2 += 'seven';
   } else if (str[0] === '8') {
-    str2 = 'eight' + str2;
+    str2 += 'eight';
   } else if (str[0] === '9') {
-    str2 = 'nine' + str2;
+    str2 += 'nine';
   } else {
-    str2 = str[0] + str2
+    str2 += str[0]
   }
-  return str2
+  return numToText(str.slice(1), str2);
 };
 
 // *** EXTRA CREDIT ***
