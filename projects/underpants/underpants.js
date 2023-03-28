@@ -232,14 +232,15 @@ _.unique = function (array) {
 *   use _.each in your implementation
 */
 _.filter = function (array, func) {
-    if (Array.isArray(array) && typeof func === 'function') {
-        var newArray = [];
-        for (let i = 0; i < array.length; i++) {
-            if (func(array[i], i, array)) {
-                newArray.push(array[i]);
+    if (Array.isArray(array) && typeof func === 'function') { //if <array> is 
+        // array and <func> is function
+        var passArray = []; // 
+        _.each(array, function (current, i, array) {
+            if (func(current, i, array)) {
+                passArray.push(current)
             }
-        }
-        return newArray;
+        })
+        return passArray;
     }
 }
 
@@ -257,13 +258,13 @@ _.filter = function (array, func) {
 */
 _.reject = function (array, func) {
     if (Array.isArray(array) && typeof func === 'function') {
-        var newArray = [];
-        for (let i = 0; i < array.length; i++) {
-            if (!func(array[i], i, array)) {
-                newArray.push(array[i]);
+        var failArray = [];
+        _.each(array, function (current, i, array) {
+            if (!func(current, i, array)) {
+                failArray.push(current)
             }
-        }
-        return newArray;
+        })
+        return failArray;
     }
 }
 
@@ -287,20 +288,19 @@ _.reject = function (array, func) {
 */
 _.partition = function (array, func) {
     if (Array.isArray(array) && typeof func === 'function') {
-        var newArray1 = [];
-        var newArray2 = [];
-        var newArray3 = [];
-        for (let i = 0; i < array.length; i++) {
-            if (func(array[i], i, array)) {
-                newArray1.push(array[i]);
+        var passArray = [];
+        var failArray = [];
+        var nestedArray = [];
+        _.each(array, function (current, i, array) {
+            if (func(current, i, array)) {
+                passArray.push(current)
             } else {
-                newArray2.push(array[i]);
+                failArray.push(current)
             }
-        }
-        newArray3.push(newArray1);
-        newArray3.push(newArray2);
-        return newArray3;
-    }
+        })
+}
+        nestedArray.push(passArray, failArray);
+        return nestedArray;
 }
 
 /** _.map
@@ -498,20 +498,20 @@ _.some = function (collection, func) {
 * Examples:
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
-_.reduce = function(array, func, seed) {
+_.reduce = function (array, func, seed) {
     //create result variable
     let result;
     //determine if seed is undefined;
     if (seed === undefined) {
         result = array[0];
         for (let i = 1; i < array.length; i++) {
-                result = func(result, array[i], i, array);
-        }    
+            result = func(result, array[i], i, array);
+        }
     } else {
         result = seed;
         for (let i = 0; i < array.length; i++) {
-                result = func(result, array[i], i, array);
-        }    
+            result = func(result, array[i], i, array);
+        }
     }
     return result;
 }
@@ -531,7 +531,7 @@ _.reduce = function(array, func, seed) {
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
-_.extend = function(obj1, ...args) {
+_.extend = function (obj1, ...args) {
     for (var i = 0; i < args.length; i++) {
         for (let key in args[i]) {
             obj1[key] = args[i][key];
