@@ -209,9 +209,7 @@ module.exports.unique = unique;
  * input array that pass the test function with a truthy value.
  */
 
-// function takes in <array> and <func> and returns new array with just the elements 
-// that pass the test
-function filter(array, func) { // function takes in array and test function
+function filter(array, func) { // function takes in an <array> and a test <func>
     if (Array.isArray(array) && typeof func === 'function') { //check to see if <array> is an
         // array and <func> is a function
         var passArray = []; // initialize array for elements that pass the test
@@ -238,9 +236,7 @@ module.exports.filter = this.filter;
  * input array that fail the test function with a falsy value.
  */
 
-// function takes in <array> and test <func> and returns new array with just the elements
-// that fail the test
-function reject(array, func) { // function takes in array and test function
+function reject(array, func) { // function takes in an <array> and a test <func>
     if (Array.isArray(array) && typeof func === 'function') { //check to see if <array> is an
         // array and <func> is a function
         var failArray = []; // initialize array for elements that fail the test
@@ -270,9 +266,7 @@ module.exports.reject = this.reject;
  * did not pass. 
  */
 
-// function takes in <array> and <func> and returns a new nested array with elements
-//  that pass the test in one sub array and elements that fail the test in another sub array 
-function partition(array, func) { // function takes in array and test function
+function partition(array, func) { // function takes in an <array> and a test <func>
     if (Array.isArray(array) && typeof func === 'function') { //check to see if <array> is an
         // array and <func> is a function
         var passArray = []; // initialize array for elements that pass the test
@@ -305,9 +299,7 @@ module.exports.partition = this.partition;
  * <callback function> for each element or property in <collection>.
  */
 
-// function takes in <collection> and <func> and returns new array of values returned by
-// callback function <func> for each value in <collection>
-function map(collection, func) { // function takes in <collection> and callback <func>
+function map(collection, func) { // function takes in a <collection> and a callback <func>
     var newArray = []; // initialize output array
     if (Array.isArray(collection)) { // check to see if collection is an array
         for (let i = 0; i < collection.length; i++) { // i = 0, 1, ... collection.length - 1
@@ -336,9 +328,8 @@ module.exports.map = this.map;
  * @returns {array} Function returns a new array with the <property> values
  * of each object in <array>.
  */
-
-// function 
-function pluck(array, property) { // function takes in <array> of objects and a <property>
+ 
+function pluck(array, property) { // function takes in an <array> of objects and a <property>
     return _.map(array, function (value, index, array) { // map each object in <array> to its given property value
         return value[property]
     })
@@ -358,7 +349,6 @@ module.exports.map = this.map
  * value in <collection>, or false otherwise. 
  */
 
-// function 
 function every(collection, func) { // function takes in a <collection> and a callback <func>
     //determine if func does not resolve to truthy
     if (!func) {
@@ -416,7 +406,7 @@ module.exports.every = this.every;
  * one value in <collection>, or false otherwise. 
  */
 
-function some(collection, func) { // function takes in <collection> and callback <func>
+function some(collection, func) { // function takes in a <collection> and a callback <func>
     //determine if func does not resolve to truthy
     if (!func) {
         //determine if array;
@@ -479,7 +469,8 @@ module.exports.some = this.some;
  * iteration.
  */
 
-function reduce(array, func, seed) { // function takes in <array>, callback <func> and <seed>
+function reduce(array, func, seed) { // function takes in an <array>, a callback <func>,
+    // and a <seed>
     //create result variable
     let result;
     //determine if seed is undefined;
@@ -509,8 +500,8 @@ module.exports.reduce = this.reduce;
  * source objects added.
  */
 
-// function
-function extend(obj1, ...args) { // function takes in target <obj1> and any number of additional objects
+function extend(obj1, ...args) { // function takes in a target <obj1> and any number of 
+    // additional <objects>
     for (var i = 0; i < args.length; i++) { // i = 0, 1, ... arg.length - 1
         for (let key in args[i]) { // add each additional key/value pair into the target array
             obj1[key] = args[i][key];
