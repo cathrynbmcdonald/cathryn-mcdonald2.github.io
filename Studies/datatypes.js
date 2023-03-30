@@ -42,55 +42,68 @@
  */
 
 // 1 // Number
+
 var age = 5; // numeric data
 
 // 2 // String
+
 var name = 'Cathy'; // string data
 
 // 3 // Boolean
+
 var bool = true; // boolean data
 
 // 4 // Array
+
 var myArray = [1, 3, 5]; // array of elements
 
 // 5 // Object
+
 var myObject = { // object with key/value pairs
     one: 'a', 
     two: 'b'
 }
 
 // 6 // Function
+
 function addOne(z) { // function named addOne
     z += 1;
 }
 console.log(addOne(2)); // prints 3
 
 // 7 // undefined
+
 var a; // variables that aren't initialized are undefined
 
 // 8 // null
+
 let b = null; // variables can be set to null
 
 // 9 // NaN
+
 let x = 10
 console.log(x * 'hello') // mismatched datat types prints NaN
 
 // 10 // Infinity and -Infinity
+
 let a = 1.797693134862315E+308;
 console.log(x * 1.001); // prints Infinity
 let b = -1.797693134862315E+308;
 console.log(x * 1.001); // prints -Infinity
 
 // 11 // Primitive vs Complex Data
+
 var myNum = 9; // primitive data
 var myObj = {name: 'Sally', age: 32}; // complex data
 
 // 12 // Copy by Value vs Copy by Reference
+
 // copy by value
 let bool1 = true;
 let bool2 = bool1;
 bool1 = false;
 console.log(bool2); // prints true
+
 // copy by reference
 let arr1 = [1, 2, 3];
 let arr2 = arr1;
