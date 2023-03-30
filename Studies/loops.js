@@ -2,43 +2,55 @@
  * 
  * LOOPS:
  * 
- * 0: Loops are features of JavaScript 
+ * 0: Loops allow us to execute a block of code as many times as needed. They allow us to work 
+ *  with the values of an array or object one by one. 
  * 
- * 1: Explain while, for, and for-in loops:
+ * 1: Explain while, for, and for-in loops:  while loops and for loops allow us to loop forward and backward through
+ *  the elements of an array, and for-in loops allow us to loop through the keys of an object and access
+ *  their values.  
  * 
  * 2. Be able to loop any number of times, forward counting up to some limit,
- * backward counting down to some limit:
+ * backward counting down to some limit: (see code example (1) below)
  * 
- * 3. Loop over an Array, forwards and backwards:
+ * 3. Loop over an Array, forwards and backwards: (see code example (2) below)
  * 
- * 4. Loop over an Object:
+ * 4. Loop over an Object: (see code examples (3) below)
  * 
  */
 
-// 1 // The while Loop
+// 1 // While Loop 
 
+// counting up
 var count = 1;
-while (count < 10) {
-    console.log(count);
+while (count <= 5) {
+    console.log(count); // prints 1, 2, 3, 4, 5
     count++;
 }
 
-// 2 // The for loop counting forward
-
-var names = ['Sam', 'Mary', 'William']
-for (var index = 0; index < names.length; i++) {
-    console.log(names[index]); // prints array values forwards 
+//counting down
+var count = 5;
+while (count >= 1) {
+    console.log(count); // prints 5, 4, 3, 2, 1
+    count--;
 }
 
-// 3 // The for loop counting backwards
+// 2 // For Loop
 
+// loop forwards with for loop counting forwards
 var names = ['Sam', 'Mary', 'William']
-for (var index = names.length - 1; i >= 0; i--) {
-    console.log(names[index]); // prints array values backwards
+for (var i = 0; i < names.length; i++) {
+    console.log(names[i]); // prints Sam, Mary, William
 }
-// 4 // The for-in loop
 
+// loop backwards with for loop counting backwards
+var names = ['Sam', 'Mary', 'William']
+for (var i = names.length - 1; i >= 0; i--) {
+    console.log(names[i]); // prints William, Mary, Sam
+}
+
+// 3 // For-in loop
 var person = {name: 'Sam', age: 64}
 for (var key in person) {
-    console.log(person[key]);// note: key is a variable so it requires bracket notation
+    console.log(key); // prints name, age
+    console.log(person[key]);// prints Sam, 64 *** note *** key is a variable so it requires bracket notation
 }
