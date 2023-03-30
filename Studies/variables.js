@@ -46,7 +46,7 @@ const length = 33; // length cannot be changed
 // 3 // Hoisting
 
 // var variable gets hoisted to top of global scope
-console.log(fullName) // prints undefined, with no error
+console.log(fullName) // fullName is hoisted with no value; prints undefined, with no error
 fullName = 'Mary Brown'; // var varibles can be used before they are declared
 console.log(fullName); // prints Mary Brown
 var fullName;
@@ -60,7 +60,8 @@ function greeting(name) {
 greeting('Paul'); // prints Bonjour Paul
 
 // functions can be used before they are defined
-console.log(subtractFour(10)); // prints 6, with no error
+console.log(subtractFour(10)); // subtractFour is hoisted to the top of the global scope; function executes 
+        // with no error, prints 6
 function subtractFour(number) {
     return number - 4;
 }
