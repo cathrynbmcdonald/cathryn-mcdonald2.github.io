@@ -5,9 +5,13 @@
  * 0: Loops allow us to execute a block of code as many times as needed. They allow us to work 
  *  with the values of an array or object one by one. 
  * 
- * 1: Explain while, for, and for-in loops:  while loops and for loops allow us to loop forward and backward through
- *  the elements of an array, and for-in loops allow us to loop through the keys of an object and access
- *  their values.  
+ * 1: Explain while, for, and for-in loops:  
+ * While loops iterate over a code block while a specified condition is true. 
+ * For loops iterate over a code block a number of times by using three statements:
+ * (1) start statement - sets the index to an initial value
+ * (2) stop statement - sets a true/false condition under which the loop will continue as long as the condition is true
+ * (3) update statement - increments or decrements the index after each loop
+ * For-in loops iterate over the keys of an object.  
  * 
  * 2. Be able to loop any number of times, forward counting up to some limit,
  * backward counting down to some limit: (see code example (1) below)

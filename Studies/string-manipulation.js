@@ -18,6 +18,7 @@ let firstName = 'John';
 let lastName = 'Smith';
 let fullName = firstName + ' ' + lastName;
 console.log(fullName); // prints John Smith
+
 // += operator
 let greeting = 'hello';
 greeting += '!';
@@ -25,10 +26,15 @@ console.log(greeting); // prints hello!
 
 // 2 // String manipulation with string methods
 
-// .slice
+// .slice (returns a substring)
 let flavor = 'strawberry';
-console.log(flavor.slice(5)); // prints berry
-// .concat
+console.log(flavor.slice(5, 7)); // prints be
+
+// .concat (returns the sume of two or more strings)
 let string1 = 'blue';
 let string2 = 'berry';
 console.log(string1.concat(string2)); // prints blueberry
+
+// .toUpperCase (returns a string capitalized)
+let middleName = 'sam';
+console.log(middleName.toUpperCase()); // prints SAM

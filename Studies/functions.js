@@ -22,7 +22,7 @@
  * 
  * 6. Scope: Functions can see and modify variables in parent or global scopes. The inverse is NOT true. (see code example (6) below)
  * 
- * 7. Closures: Functions form closures around the data they house. If an object is returned from the Function and is held
+ * 7. Closures: Functions form closures around the data they house. If an object is returned from the function and is held
  *  in memory somewhere (referenced), that closure stays ALIVE, and data can continue to exist in these closures! (see code example (7) below)
  */
 

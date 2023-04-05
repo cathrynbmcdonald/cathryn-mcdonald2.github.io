@@ -345,8 +345,8 @@ _.map = function (collection, func) {
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
 _.pluck = function (array, property) {
-    return _.map(array, function (value, index, array) {
-        return value[property]
+    return _.map(array, function (obj, index, array) {
+        return obj[property]
     })
 }
 
